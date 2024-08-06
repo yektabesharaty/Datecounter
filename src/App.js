@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./styles.css";
 
-function App() {
+export default function App() {
+  const [step, setstep] = useState(1);
+  const [count, setcount] = useState(0);
+
+  const date = new Date("june 21 2027");
+
+  date.setDate(date.getDate() + count);
+
+  function handlestep1() {
+    setstep(step - 1);
+  }
+  function handlestep2() {
+    setstep(step + 1);
+  }
+  function handlecount1() {
+    setcount(count - step);
+  }
+  function handlecount2() {
+    setcount(count + step);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="button">
+        <button onClick={handlestep1}>-</button>
+        <p>Step :{step}</p>
+        <button onClick={handlestep2}>+</button>
+      </div>
+      <div className="button">
+        <button onClick={handlecount1}>-</button>
+        <p>Count: {count}</p>
+        <button onClick={handlecount2}>+</button>
+      </div>
+      <p>
+        <span>
+          {count === 0
+            ? `Today is ${date.toDateString()}`
+            : count > 0
+            ? `${count} days from today is ${date.toDateString()}`
+            : `${Math.abs(count)} days ago was ${date.toDateString()} `}
+        </span>
+      </p>
     </div>
   );
 }
-
-export default App;
